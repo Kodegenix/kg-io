@@ -13,6 +13,8 @@ Licensed under either of
 
 at your option.
 
+`SPDX-License-Identifier: Apache-2.0 OR MIT`
+
 ### Contribution
 
 Unless you explicitly state otherwise, any contribution intentionally submitted
