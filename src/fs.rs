@@ -81,11 +81,11 @@ impl FileBuffer {
         })
     }
 
-    pub fn char_reader<'a>(&'a mut self) -> MemCharReader<'a> {
+    pub fn char_reader(&mut self) -> MemCharReader {
         MemCharReader::with_path(&self.path, &self.data)
     }
 
-    pub fn byte_reader<'a>(&'a mut self) -> MemByteReader<'a> {
+    pub fn byte_reader(&mut self) -> MemByteReader {
         MemByteReader::with_path(&self.path, &self.data)
     }
 
@@ -113,11 +113,17 @@ pub fn read_to_string<P: AsRef<Path>>(file_path: P, buf: &mut String)-> IoResult
     Ok(())
 }
 
+pub fn read_string<P: AsRef<Path>>(file_path: P)-> IoResult<String>  {
+    let mut s = String::new();
+    read_to_string(file_path, &mut s)?;
+    Ok(s)
+}
+
 pub fn canonicalize<P: AsRef<Path>>(file_path: P) -> IoResult<PathBuf> {
     Ok(std::fs::canonicalize(file_path.as_ref()).info(file_path.as_ref(), OpType::Read, FileType::Unknown)?)
 }
 
-pub fn current_dir () -> IoResult<PathBuf> {
+pub fn current_dir() -> IoResult<PathBuf> {
     match std::env::current_dir(){
         Ok(dir) => Ok(dir),
         Err(err)=> {
