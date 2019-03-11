@@ -1,15 +1,11 @@
-#![feature(box_syntax, specialization)]
+#![feature(specialization)]
 
-extern crate serde;
 #[macro_use]
 extern crate serde_derive;
 
-extern crate kg_diag;
 #[macro_use]
 extern crate kg_display_derive;
 
-#[cfg(test)]
-extern crate tempfile;
 
 use kg_diag::*;
 
