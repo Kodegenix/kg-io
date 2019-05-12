@@ -10,12 +10,14 @@ license = "Apache-2.0 OR MIT"
 repository = "https://github.com/Kodegenix/kg-io"
 edition = "2018"
 
+[workspace]
+
 [dependencies]
-kg-diag = "0.1"
-kg-display-derive = "0.1"
-serde = "1.0"
-serde_derive = "1.0"
+kg-diag = "0.1.0"
+kg-display-derive = "0.1.0"
+serde = "1.0.91"
+serde_derive = "1.0.91"
 
 [dev-dependencies]
-assert_approx_eq = "1.0"
-tempfile = "3.0"
+assert_approx_eq = "1.1.0"
+tempfile = "3.0.7"
