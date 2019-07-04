@@ -1,7 +1,7 @@
 use super::*;
 
 use std::path::{Path, PathBuf};
-use std::fs::{File, OpenOptions};
+use std::fs::{File, OpenOptions, Metadata};
 use std::io::{Read, Write};
 use std::fs::ReadDir;
 
@@ -164,6 +164,9 @@ pub fn create_dir_all<P: Into<PathBuf> + AsRef<Path>>(dir: P) -> IoResult<()> {
     Ok(())
 }
 
+pub fn metadata<P: AsRef<Path>>(path: P) -> IoResult<Metadata> {
+    std::fs::metadata(path.as_ref()).info(path.as_ref(), OpType::Read, FileType::Unknown)
+}
 
 #[cfg(test)]
 mod tests {
