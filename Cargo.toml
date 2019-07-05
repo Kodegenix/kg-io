@@ -1,6 +1,6 @@
 [package]
 name = "kg-io"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Jakub Chłapiński <jakub.chlapinski@kodegenix.pl>"]
 description = """
 Wrapper layer for I/O routines from std::io with improved error reporting.
@@ -13,11 +13,11 @@ edition = "2018"
 [workspace]
 
 [dependencies]
-kg-diag = "0.1.0"
-kg-display-derive = "0.1.0"
-serde = "1.0.91"
-serde_derive = "1.0.91"
+kg-diag = "0.1.1"
+kg-display-derive = "0.1.1"
+serde = "1.0.94"
+serde_derive = "1.0.94"
 
 [dev-dependencies]
 assert_approx_eq = "1.1.0"
-tempfile = "3.0.8"
+tempfile = "3.1.0"
