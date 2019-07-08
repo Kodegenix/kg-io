@@ -1,9 +1,8 @@
-use super::*;
-
 use std::path::PathBuf;
 
 use kg_diag::Detail;
 
+use super::*;
 
 #[derive(Debug, Eq, PartialEq, Clone)]
 pub enum IoError {

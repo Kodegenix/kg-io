@@ -1,9 +1,8 @@
-use super::*;
-
 use std::borrow::Cow;
-use std::path::Path;
 use std::char;
+use std::path::Path;
 
+use super::*;
 
 pub trait Reader {
     fn path(&self) -> Option<&Path>;

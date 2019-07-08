@@ -1,10 +1,9 @@
-use super::*;
-
-use std::path::{Path, PathBuf};
-use std::fs::{File, OpenOptions, Metadata};
-use std::io::{Read, Write};
+use std::fs::{File, Metadata, OpenOptions};
 use std::fs::ReadDir;
+use std::io::{Read, Write};
+use std::path::{Path, PathBuf};
 
+use super::*;
 
 #[derive(Debug, Display, Clone, Copy, Eq, PartialEq, Hash)]
 pub enum OpType {
