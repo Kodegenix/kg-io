@@ -19,7 +19,7 @@ fn make_string() -> String {
     s
 }
 
-fn dyn_scan(r: &mut CharReader) -> ParseResult<usize> {
+fn dyn_scan(r: &mut dyn CharReader) -> ParseResult<usize> {
     let mut count = 0;
     while let Some(c) = r.next_char()? {
         if c == '0' {
