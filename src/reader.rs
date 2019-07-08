@@ -55,9 +55,9 @@ pub trait CharReader: Reader {
 
     fn match_str(&mut self, s: &str) -> ParseResult<bool>;
 
-    fn match_str_term(&mut self, s: &str, f: &Fn(Option<char>) -> bool) -> ParseResult<bool>;
+    fn match_str_term(&mut self, s: &str, f: &dyn Fn(Option<char>) -> bool) -> ParseResult<bool>;
 
-    fn match_str_term_mut(&mut self, s: &str, f: &mut FnMut(Option<char>) -> bool) -> ParseResult<bool>;
+    fn match_str_term_mut(&mut self, s: &str, f: &mut dyn FnMut(Option<char>) -> bool) -> ParseResult<bool>;
 
     fn match_char(&mut self, c: char) -> ParseResult<bool> {
         if let Some(k) = self.peek_char(0)? {
@@ -89,7 +89,7 @@ pub trait CharReader: Reader {
         Ok(())
     }
 
-    fn scan(&mut self, f: &Fn(char) -> bool) -> ParseResult<Cow<str>> {
+    fn scan(&mut self, f: &dyn Fn(char) -> bool) -> ParseResult<Cow<str>> {
         let s = self.position().offset;
         while let Some(c) = self.peek_char(0)? {
             if f(c) {
@@ -102,7 +102,7 @@ pub trait CharReader: Reader {
         self.slice(s, offset)
     }
 
-    fn scan_mut(&mut self, f: &mut FnMut(char) -> bool) -> ParseResult<Cow<str>> {
+    fn scan_mut(&mut self, f: &mut dyn FnMut(char) -> bool) -> ParseResult<Cow<str>> {
         let s = self.position().offset;
         while let Some(c) = self.peek_char(0)? {
             if f(c) {
@@ -115,7 +115,7 @@ pub trait CharReader: Reader {
         self.slice(s, offset)
     }
 
-    fn skip_until(&mut self, f: &Fn(char) -> bool) -> ParseResult<()> {
+    fn skip_until(&mut self, f: &dyn Fn(char) -> bool) -> ParseResult<()> {
         while let Some(c) = self.peek_char(0)? {
             if f(c) {
                 break;
@@ -126,7 +126,7 @@ pub trait CharReader: Reader {
         Ok(())
     }
 
-    fn skip_until_mut(&mut self, f: &mut FnMut(char) -> bool) -> ParseResult<()> {
+    fn skip_until_mut(&mut self, f: &mut dyn FnMut(char) -> bool) -> ParseResult<()> {
         while let Some(c) = self.peek_char(0)? {
             if f(c) {
                 break;
@@ -137,7 +137,7 @@ pub trait CharReader: Reader {
         Ok(())
     }
 
-    fn skip_while(&mut self, f: &Fn(char) -> bool) -> ParseResult<()> {
+    fn skip_while(&mut self, f: &dyn Fn(char) -> bool) -> ParseResult<()> {
         while let Some(c) = self.peek_char(0)? {
             if f(c) {
                 self.next_char()?;
@@ -148,7 +148,7 @@ pub trait CharReader: Reader {
         Ok(())
     }
 
-    fn skip_while_mut(&mut self, f: &mut FnMut(char) -> bool) -> ParseResult<()> {
+    fn skip_while_mut(&mut self, f: &mut dyn FnMut(char) -> bool) -> ParseResult<()> {
         while let Some(c) = self.peek_char(0)? {
             if f(c) {
                 self.next_char()?;
@@ -396,7 +396,7 @@ impl<'a> CharReader for MemCharReader<'a> {
         }
     }
 
-    fn match_str_term(&mut self, s: &str, f: &Fn(Option<char>) -> bool) -> ParseResult<bool> {
+    fn match_str_term(&mut self, s: &str, f: &dyn Fn(Option<char>) -> bool) -> ParseResult<bool> {
         let mut r = self.clone();
         if r.match_str(s)? {
             let e = self.pos.offset + s.len();
@@ -409,7 +409,7 @@ impl<'a> CharReader for MemCharReader<'a> {
         }
     }
 
-    fn match_str_term_mut(&mut self, s: &str, f: &mut FnMut(Option<char>) -> bool) -> ParseResult<bool> {
+    fn match_str_term_mut(&mut self, s: &str, f: &mut dyn FnMut(Option<char>) -> bool) -> ParseResult<bool> {
         let mut r = self.clone();
         if r.match_str(s)? {
             let e = self.pos.offset + s.len();
