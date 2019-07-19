@@ -7,7 +7,6 @@ extern crate serde_derive;
 
 
 use kg_diag::*;
-pub use kg_diag::{Position, Quote};
 
 pub use self::error::{IoError, ResultExt};
 pub use self::fs::{FileBuffer, FileType, OpType};
