@@ -17,6 +17,6 @@ pub mod error;
 pub mod fs;
 mod reader;
 
-pub type IoResult<T> = std::result::Result<T, IoError>;
+pub type IoResult<T> = std::result::Result<T, BasicDiag>;
 pub type ParseResult<T> = std::result::Result<T, ParseDiag>;
 

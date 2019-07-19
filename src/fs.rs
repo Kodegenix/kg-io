@@ -127,7 +127,7 @@ pub fn current_dir() -> IoResult<PathBuf> {
         Ok(dir) => Ok(dir),
         Err(err)=> {
             let e = IoError::CurrentDirGet {kind: err.kind()};
-            Err(e)
+            Err(e.into())
         }
     }
 }

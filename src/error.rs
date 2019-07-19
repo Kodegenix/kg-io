@@ -155,7 +155,7 @@ impl<T> ResultExt<T> for std::io::Result<T> {
                     op_type,
                     file_type,
                     path: path.into(),
-                })
+                }.into())
             }
         }
     }
