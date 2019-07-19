@@ -174,6 +174,7 @@ mod tests {
     #[test]
     fn file_not_found() {
         let e = FileBuffer::open("./should_not_exist").unwrap_err();
+        let e = e.detail().downcast_ref::<error::IoError>().unwrap();
         let err = error::IoError::IoPath {
             path: std::path::PathBuf::from("./should_not_exist"),
             op_type: OpType::Read,
@@ -181,13 +182,15 @@ mod tests {
             kind: std::io::ErrorKind::NotFound,
         };
 
-        assert_eq!(e, err);
+        assert_eq!(e, &err);
     }
 
     #[test]
     fn canonicalize() {
         let err = fs::canonicalize("./should_not_exist").unwrap_err();
-        assert_eq!(err , error::IoError::IoPath {kind: std::io::ErrorKind::NotFound, op_type: OpType::Read, file_type: FileType::Unknown, path: std::path::PathBuf::from("./should_not_exist")});
+        let err = err.detail().downcast_ref::<error::IoError>().unwrap();
+
+        assert_eq!(err , &error::IoError::IoPath {kind: std::io::ErrorKind::NotFound, op_type: OpType::Read, file_type: FileType::Unknown, path: std::path::PathBuf::from("./should_not_exist")});
     }
 
     #[test]
@@ -202,7 +205,9 @@ mod tests {
         let mut s = String::new();
         let path = tmpfile.path();
         let err = fs::read_to_string(path, &mut s).unwrap_err();
-        assert_eq!(err , error::IoError::IoPath {kind: std::io::ErrorKind::InvalidData, op_type: OpType::Read,file_type: FileType::File, path: std::path::PathBuf::from(path)});
+        let err = err.detail().downcast_ref::<error::IoError>().unwrap();
+
+        assert_eq!(err , &error::IoError::IoPath {kind: std::io::ErrorKind::InvalidData, op_type: OpType::Read,file_type: FileType::File, path: std::path::PathBuf::from(path)});
     }
 
     #[test]
@@ -213,7 +218,9 @@ mod tests {
         std::env::set_current_dir(&s).unwrap();
         std::fs::remove_dir(s).unwrap();
         let err = fs::current_dir().unwrap_err();
-        assert_eq!(err , error::IoError::CurrentDirGet {kind: std::io::ErrorKind::NotFound});
+        let err = err.detail().downcast_ref::<error::IoError>().unwrap();
+
+        assert_eq!(err , &error::IoError::CurrentDirGet {kind: std::io::ErrorKind::NotFound});
         std::env::set_current_dir(&path).unwrap();
     }
 }
