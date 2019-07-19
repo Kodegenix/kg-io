@@ -2,6 +2,7 @@
 
 [![Latest Version](https://img.shields.io/crates/v/kg-io.svg)](https://crates.io/crates/kg-io)
 [![Documentation](https://docs.rs/kg-io/badge.svg)](https://docs.rs/kg-io)
+[![Build Status](https://travis-ci.com/Kodegenix/kg-io.svg?branch=master)](https://travis-ci.com/Kodegenix/kg-io)
 
 Wrapper layer for I/O routines from std::io with improved error reporting.
 
